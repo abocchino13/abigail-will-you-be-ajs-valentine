@@ -3,8 +3,15 @@ import { useState } from "react";
 
 export default function Page() {
   const [noCount, setNoCount] = useState(0);
+  const [yesClicks, setYesClicks] = useState(0);
   const [yesPressed, setYesPressed] = useState(false);
   const yesButtonSize = noCount * 20 + 16;
+  const yesConfirmations = [
+  "Yes",
+  "Are you sure?",
+  "Sorry I was vacuuming and missed what you said",
+  "One more time? I am hard of hearing sorry",
+];
 
   const handleNoClick = () => {
     setNoCount(noCount + 1);
@@ -48,10 +55,18 @@ export default function Page() {
           />
           <h1 className="my-4 text-4xl">Will you be my Valentine?</h1>
           <div className="flex items-center">
-            <button
-              className={`mr-4 rounded bg-green-500 px-4 py-2 font-bold text-white hover:bg-green-700`}
-              style={{ fontSize: yesButtonSize }}
-              onClick={() => setYesPressed(true)}
+              <button
+  onClick={() => {
+    if (yesClicks < yesConfirmations.length - 1) {
+      setYesClicks(prev => prev + 1);
+    } else {
+      setAccepted(true);
+    }
+  }}
+>
+  {yesConfirmations[yesClicks]}
+</button>
+
             >
               Yes
             </button>
